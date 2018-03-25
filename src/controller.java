@@ -43,13 +43,7 @@ public class controller {
         textInputDialog.setTitle("Marks");
         textInputDialog.setHeaderText("Enter the number of marks");
         Optional<String> result = textInputDialog.showAndWait();
-        try {
-            maxMarks = Integer.parseInt(result.get());
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        progressBar.setProgress(0);
-        progressLabel.setText("0%");
+        maxMarks = Integer.parseInt(result.get());
         currentMarks=0;
         marksLabel.setText("Progress: "+currentMarks+"/"+maxMarks);
     }
