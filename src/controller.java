@@ -1,9 +1,10 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+
+import java.util.Optional;
 
 public class controller {
 
@@ -15,19 +16,44 @@ public class controller {
 
     @FXML private Button incrementMarksButton;
 
-    private int marks;
+    @FXML private Label marksLabel;
+
+    @FXML private Button resetButton;
+
+    private int maxMarks;
+    private int currentMarks;
 
     @FXML
     void incrementMarks(ActionEvent event) {
-
+        currentMarks++;
+        double completion = (double)currentMarks/maxMarks;
+        if(completion<=1){
+            progressLabel.setText(Math.round(completion*100)+"%");
+            progressBar.setProgress(completion);
+            marksLabel.setText("Progress: "+currentMarks+"/"+maxMarks);
+        }
+        if(completion==1){
+            marksLabel.setText("Progress: Completed!");
+        }
     }
 
     @FXML
     void setMarks(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setTitle("Choose the number of marks");
-        alert.setHeaderText("Choose the number of marks");
-        alert.show();
+        TextInputDialog textInputDialog = new TextInputDialog();
+        textInputDialog.setTitle("Marks");
+        textInputDialog.setHeaderText("Enter the number of marks");
+        Optional<String> result = textInputDialog.showAndWait();
+        maxMarks = Integer.parseInt(result.get());
+        currentMarks=0;
+        marksLabel.setText("Progress: "+currentMarks+"/"+maxMarks);
+    }
+
+    @FXML
+    void reset(ActionEvent event){
+        currentMarks=0;
+        marksLabel.setText("Progress: "+currentMarks+"/"+maxMarks);
+        progressBar.setProgress(0);
+        progressLabel.setText("0%");
     }
 
 }
