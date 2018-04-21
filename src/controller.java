@@ -92,21 +92,6 @@ public class controller {
 
     @FXML
     void setTime(ActionEvent event){
-        /*
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("Enter hours");
-        startHours=input.nextInt();
-        hours = startHours;
-
-        System.out.println("Enter mins");
-        startMins = input.nextInt();
-        mins = startMins;
-
-        System.out.println("Enter secs");
-        startSecs = input.nextInt();
-        secs = startSecs;
-        */
 
         TextInputDialog textInputDialog = new TextInputDialog();
         textInputDialog.setTitle("Time");
