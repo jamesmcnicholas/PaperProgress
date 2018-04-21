@@ -41,10 +41,16 @@ public class controller {
     private int timeInSeconds;
     private int startTimeInSeconds;
 
+    private int currentTime;
+
     private boolean paused = true;
 
     private int maxMarks;
     private int currentMarks;
+
+    private int upHours = 0;
+    private int upMins = 0;
+    private int upSecs = 0;
 
     @FXML
     void incrementMarks(ActionEvent event) {
@@ -67,7 +73,9 @@ public class controller {
         textInputDialog.setTitle("Marks");
         textInputDialog.setHeaderText("Enter the number of marks");
         Optional<String> result = textInputDialog.showAndWait();
-        maxMarks = Integer.parseInt(result.get());
+        if(result.isPresent()) {
+            maxMarks = Integer.parseInt(result.get());
+        }
         currentMarks=0;
         marksLabel.setText("Progress: "+currentMarks+"/"+maxMarks);
     }
@@ -97,12 +105,15 @@ public class controller {
         textInputDialog.setTitle("Time");
         textInputDialog.setHeaderText("Enter the time in the form HH:MM:SS");
         Optional<String> result = textInputDialog.showAndWait();
-        String results = result.get();
+        if(result.isPresent()){
+            String results = result.get();
+            List<String> timeList = Arrays.asList(results.split(":"));
+            startHours = Integer.parseInt(timeList.get(0));
+            startMins = Integer.parseInt(timeList.get(1));
+            startSecs = Integer.parseInt(timeList.get(2));
+        }
 
-        List<String> timeList = Arrays.asList(results.split(":"));
-        startHours = Integer.parseInt(timeList.get(0));
-        startMins = Integer.parseInt(timeList.get(1));
-        startSecs = Integer.parseInt(timeList.get(2));
+
 
         hours = startHours;
         mins = startMins;
@@ -130,6 +141,7 @@ public class controller {
     private void advanceTime(){
             Timeline t = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
                 countdown();
+                countup();
             }));
             t.setCycleCount(Animation.INDEFINITE);
             t.play();
@@ -160,6 +172,27 @@ public class controller {
             timeProgressBar.setProgress(timeProgress);
 
         }
+    }
+
+    private void countup(){
+
+        if(!paused){
+
+            if(upSecs + 1 == 60){
+                upSecs = 0;
+                if(upMins + 1 == 60){
+                    upMins = 0;
+                    upHours++;
+                } else {
+                    upMins++;
+                }
+            } else {
+                upSecs++;
+            }
+
+            currentTimeLabel.setText(formatTime(upHours,upMins,upSecs));
+        }
+
     }
 
     private void calculateTimeInSeconds(){

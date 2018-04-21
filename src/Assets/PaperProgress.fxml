@@ -14,8 +14,11 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="45.0" prefWidth="526.0" style="-fx-background-color: #232426;" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="progressLabel" prefWidth="50.0" text="100%" textFill="WHITE" />
-            <ProgressBar fx:id="progressBar" prefHeight="38.0" prefWidth="420.0" progress="0.0">
+            <Label fx:id="progressLabel" prefWidth="45.0" text="100%" textFill="WHITE">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin></Label>
+            <ProgressBar fx:id="progressBar" prefHeight="38.0" prefWidth="412.0" progress="0.0">
                <padding>
                   <Insets bottom="10.0" top="10.0" />
                </padding>
@@ -89,13 +92,19 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="16.0" prefWidth="526.0">
                <children>
-                  <Label fx:id="currentTimeLabel" prefWidth="50.0" text="00:00:00" textFill="WHITE" />
+                  <Label fx:id="currentTimeLabel" prefWidth="50.0" text="00:00:00" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin></Label>
                   <ProgressBar fx:id="timeProgressBar" prefHeight="18.0" prefWidth="417.0" progress="0.0">
                      <effect>
                         <ColorAdjust hue="0.9" />
                      </effect>
                   </ProgressBar>
-                  <Label fx:id="endTimeLabel" alignment="CENTER_RIGHT" prefWidth="50.0" text="00:00:00" textFill="WHITE" />
+                  <Label fx:id="endTimeLabel" alignment="CENTER_RIGHT" prefWidth="50.0" text="00:00:00" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin></Label>
                </children>
                <padding>
                   <Insets left="5.0" right="5.0" />
